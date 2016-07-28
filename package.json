@@ -1,0 +1,17 @@
+{
+  "name": "npc",
+  "version": "1.0.0",
+  "description": "npc",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": "amio/npc",
+  "license": "MIT",
+  "author": "Amio <amio.cn@gmail.com>",
+  "bugs": "https://github.com/amio/npc/issues",
+  "homepage": "https://github.com/amio/npc#readme",
+  "dependencies": {
+    "npm-registry-client": "^7.1.2"
+  }
+}

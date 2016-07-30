@@ -25,12 +25,13 @@ rl.on('line', (line) => {
 const threadsCount = 10
 const threads = []
 rl.on('close', () => {
-  console.log(`==> ${len} chars words, ${words.length} in total.`, startWord && ` start from ${startWord}`)
+  console.log(
+    `==> ${len} chars words, ${words.length} in total.`,
+    startWord && `start from ${startWord}.`
+  )
 
   // createLookupPromise(words[0])
-  start(words).then(() => {
-    console.log(unused)
-  })
+  start(words).then(logResult)
 })
 
 const unused = []
@@ -42,7 +43,7 @@ function createLookupPromise (name, counter) {
       }
 
       stdout && process.stdout.write(`${name}(${counter}), `)
-      stderr && unused.push(name) && console.log(`\n-----!! ${name} !!-----`)
+      stderr && unused.push(name) && process.stdout.write(`\x1b[1;37;42m ${name} \x1b[0m, `)
 
       resolve(name)
     })
@@ -50,6 +51,7 @@ function createLookupPromise (name, counter) {
 }
 
 function start (words) {
+  process.stdout.write('\nStart checking: ')
   let ignore = argv.start !== undefined
   let counter = 0
   return words.reduce(function (promise, word) {
@@ -69,6 +71,10 @@ process.on('SIGINT', err => {
     console.log('PROCESS ERR:', err)
     return
   }
-  console.log('\nFound these:', unused.join(', '))
+  logResult()
   process.exit()
 })
+
+function logResult () {
+  console.log('\n\nFound these:', unused.join(', '))
+}
